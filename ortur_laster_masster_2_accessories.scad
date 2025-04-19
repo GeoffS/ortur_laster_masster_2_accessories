@@ -6,7 +6,7 @@ layerHeight = 0.2;
 makeType1 = false;
 makeType2 = false;
 
-footX = 30;
+footX = 35;
 footY = 4.8;
 footZ = 8;
 
@@ -25,7 +25,7 @@ pfey = footEnclosureY/2 - footEnclosureCornerDia/2;
 baseCornerDia = footEnclosureCornerDia + 6;
 baseX = footEnclosureX + 14;
 baseY = footEnclosureY + 14;
-baseZ = 4;
+baseZ = 12 * layerHeight;
 
 baseShiftXY = 3;
 
@@ -85,7 +85,7 @@ module screwHole(x, y)
 	{
 		tcy([0,0,-1], d=screwHoleDia, h=20);
 		d2=9;
-		translate([0,0,baseZ-screwHoleDia/2-2.5]) cylinder(d1=0, d2=d2, h=d2/2);
+		translate([0,0,baseZ-screwHoleDia/2-1.7]) cylinder(d1=0, d2=d2, h=d2/2);
 	}
 }
 
@@ -99,7 +99,7 @@ if(developmentRender)
 {
 	display() itemModule();
 
-	display() translate([-45,0,0]) mirror([1,0,0]) itemModule();
+	display() translate([-50,0,0]) mirror([1,0,0]) itemModule();
 }
 else
 {
