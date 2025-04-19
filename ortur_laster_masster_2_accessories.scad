@@ -14,8 +14,16 @@ footEnclosureY = footY + 4.5;
 footEnclosureZ = footZ + 1;
 footEnclosureCornerDia = 5;
 
-pbx = footEnclosureX/2 - footEnclosureCornerDia/2;
-pby = footEnclosureY/2 - footEnclosureCornerDia/2;
+pfex = footEnclosureX/2 - footEnclosureCornerDia/2;
+pfey = footEnclosureY/2 - footEnclosureCornerDia/2;
+
+baseCornerDia = footEnclosureCornerDia + 5;
+baseX = footEnclosureX + 10;
+baseY = footEnclosureY + 10;
+baseZ = 3;
+
+pbx = baseX/2 - baseCornerDia/2;
+pby = baseY/2 - baseCornerDia/2;
 
 module itemModule()
 {
@@ -30,7 +38,12 @@ module footBase()
 {
 	hull()
 	{
-		doubleX() doubleY() translate([pbx, pby, 0]) simpleChamferedCylinder(d=footEnclosureCornerDia, h=footZ, cz=1.5);
+		doubleX() doubleY() translate([pfex, pfey, 0]) simpleChamferedCylinder(d=footEnclosureCornerDia, h=footZ, cz=1.5);
+	}
+	dxy = 3;
+	translate([dxy, -dxy, 0]) hull()
+	{
+		doubleX() doubleY() translate([pbx, pby, 0]) simpleChamferedCylinder(d=baseCornerDia, h=baseZ, cz=1);
 	}
 }
 
