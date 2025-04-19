@@ -23,11 +23,12 @@ pfex = footEnclosureX/2 - footEnclosureCornerDia/2;
 pfey = footEnclosureY/2 - footEnclosureCornerDia/2;
 
 baseCornerDia = footEnclosureCornerDia + 6;
-baseX = footEnclosureX + 14;
-baseY = footEnclosureY + 14;
+baseX = footEnclosureX + 22;
+baseY = footEnclosureY + 18;
 baseZ = 12 * layerHeight;
 
-baseShiftXY = 3;
+baseShiftX = 8.5;
+baseShiftY = 6.5;
 
 pbx = baseX/2 - baseCornerDia/2;
 pby = baseY/2 - baseCornerDia/2;
@@ -70,7 +71,7 @@ module footCutout()
 
 module baseXform()
 {
-	translate([baseShiftXY, -baseShiftXY, 0]) children();
+	translate([baseShiftX, -baseShiftY, 0]) children();
 }
 
 module screwHoles()
@@ -99,7 +100,7 @@ if(developmentRender)
 {
 	display() itemModule();
 
-	display() translate([-50,0,0]) mirror([1,0,0]) itemModule();
+	display() translate([-70,0,0]) mirror([1,0,0]) itemModule();
 }
 else
 {
