@@ -23,11 +23,11 @@ pfex = footEnclosureX/2 - footEnclosureCornerDia/2;
 pfey = footEnclosureY/2 - footEnclosureCornerDia/2;
 
 baseCornerDia = footEnclosureCornerDia + 6;
-baseX = footEnclosureX + 22;
+baseX = footEnclosureX + 18;
 baseY = footEnclosureY + 18;
 baseZ = 12 * layerHeight;
 
-baseShiftX = 8.5;
+baseShiftX = 6.5;
 baseShiftY = 6.5;
 
 pbx = baseX/2 - baseCornerDia/2;
