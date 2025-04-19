@@ -1,4 +1,5 @@
 include <../OpenSCAD_Lib/MakeInclude.scad>
+include <../OpenSCAD_Lib/chamferedCylinders.scad>
 
 footX = 30;
 footY = 4.8;
@@ -11,7 +12,7 @@ footPadZ = 7;
 footEnclosureX = footX + 4.5;
 footEnclosureY = footY + 4.5;
 footEnclosureZ = footZ + 1;
-footEnclosureCornerDia = 4;
+footEnclosureCornerDia = 5;
 
 pbx = footEnclosureX/2 - footEnclosureCornerDia/2;
 pby = footEnclosureY/2 - footEnclosureCornerDia/2;
@@ -29,7 +30,7 @@ module footBase()
 {
 	hull()
 	{
-		doubleX() doubleY() translate([pbx, pby, 0]) cylinder(d=footEnclosureCornerDia, h=footZ);
+		doubleX() doubleY() translate([pbx, pby, 0]) simpleChamferedCylinder(d=footEnclosureCornerDia, h=footZ, cz=1.5);
 	}
 }
 
