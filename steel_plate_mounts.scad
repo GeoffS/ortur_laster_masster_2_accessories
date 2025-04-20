@@ -12,7 +12,7 @@ footX = 100;
 footY = 6;
 footZ = 6;
 
-footEnclosureCornerDia = 7;
+footEnclosureCornerDia = 4;
 
 // pfex = footX/2 - footEnclosureCornerDia/2;
 // pfey = footY/2 - footEnclosureCornerDia/2;
@@ -20,8 +20,10 @@ footEnclosureCornerDia = 7;
 baseCornerDia = footEnclosureCornerDia + 6;
 baseX = footX;
 baseY = 20;
-baseZ = 7 * layerHeight;
+baseZ = 7 * layerHeight; // Just less than 1/16"
 baseCZ = 1;
+
+echo(str("baseZ = ", baseZ));
 
 baseShiftX = 6.5;
 baseShiftY = 6.5;
@@ -68,7 +70,7 @@ module screwHoles()
 	{
 		tcy([0,0,-1], d=screwHoleDia, h=20);
 		d2=9;
-		translate([0,0,baseZ-screwHoleDia/2-1.7]) cylinder(d1=0, d2=d2, h=d2/2);
+		translate([0,0,screwExtensionZ-screwHoleDia/2-1.7]) cylinder(d1=0, d2=d2, h=d2/2);
 	}
 }
 
