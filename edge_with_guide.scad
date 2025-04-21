@@ -57,14 +57,18 @@ module basePlate()
             hull()
             {
                 cx = guideX - 2*guideCZ;
-                cy = guideY - guideCZ;
+                cy = guideY - 2*guideCZ;
                 cz = guideZ - guideCZ;
-                tcu([-guideX/2, -cy, 0], [guideX, cy, cz]);
+                tcu([-guideX/2, -cy-guideCZ, 0], [guideX, cy, cz]);
                 tcu([-cx/2, -guideY, 0], [cx, guideY, guideZ]);
             }
         }
+
         // Chamfer the ends:
-        doubleX() translate([-baseX/2, 0, 0]) rotate([0,0,45]) tcu([-200, -sin(45), -10], 400);
+        doubleX() translate([-baseX/2, 0, 0]) rotate([0,0,45]) tcu([-200, -2*sin(45), -10], 400);
+
+        // Chamfer the top of the guide:
+        translate([-baseX/2, 0, guideZ]) rotate([45,0,0]) tcu([-200, -2*sin(45), -10], 400);
 
         // Trim off X>0:
         tcu([-200,0,-10], 400);
