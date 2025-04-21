@@ -9,9 +9,6 @@ footZ = 6;
 
 footEnclosureCornerDia = 4;
 
-// pfex = footX/2 - footEnclosureCornerDia/2;
-// pfey = footY/2 - footEnclosureCornerDia/2;
-
 baseCornerDia = footEnclosureCornerDia + 6;
 baseX = footX;
 baseY = 20;
@@ -28,7 +25,12 @@ pby = -(baseY - baseCornerDia/2);
 
 screwHoleDia = 3.2; // Measured #4-1/2 FH
 
-screwExtensionZ = baseZ;;
+screwExtensionZ = baseZ;
+
+guideX = baseX;
+guideY = 6;
+guideZ = 8;
+guideCZ = baseCZ;
 
 module edgeWithGuide()
 {
@@ -43,15 +45,30 @@ module basePlate()
 {
 	difference()
     {
-        hull()
+        union()
         {
-            doubleY() baseRoundedCornersXform() simpleChamferedCylinder(d=baseCornerDia, h=baseZ, cz=baseCZ);
+            // Base:
+            hull()
+            {
+                doubleY() baseRoundedCornersXform() simpleChamferedCylinder(d=baseCornerDia, h=baseZ, cz=baseCZ);
+            }
+            // Guide:
+            // tcu([-guideX/2, -guideY, 0], [guideX, guideY, guideZ]);
+            hull()
+            {
+                cx = guideX - 2*guideCZ;
+                cy = guideY - guideCZ;
+                cz = guideZ - guideCZ;
+                tcu([-guideX/2, -cy, 0], [guideX, cy, cz]);
+                tcu([-cx/2, -guideY, 0], [cx, guideY, guideZ]);
+            }
         }
+        // Chamfer the ends:
+        doubleX() translate([-baseX/2, 0, 0]) rotate([0,0,45]) tcu([-200, -sin(45), -10], 400);
+
         // Trim off X>0:
         tcu([-200,0,-10], 400);
     }
-    // Extra thickness at screws:
-    // baseRoundedCornersXform() simpleChamferedCylinder(d=baseCornerDia, h=screwExtensionZ, cz=baseCZ);
 }
 
 module baseRoundedCornersXform()
