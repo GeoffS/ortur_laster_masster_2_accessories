@@ -3,11 +3,6 @@ include <../OpenSCAD_Lib/chamferedCylinders.scad>
 
 layerHeight = 0.2;
 
-makeLLCorner = false;
-makeULCorner = false;
-makeEdgeWithGuide = false;
-makeEdgeWithoutGuide = false;
-
 footX = 100;
 footY = 6;
 footZ = 6;
@@ -83,11 +78,8 @@ module clip(d=0)
 if(developmentRender)
 {
 	display() edgeWithoutGuide();
-
-	// display() translate([-70,0,0]) mirror([1,0,0]) edgeWithoutGuide();
 }
 else
 {
-	if(makeType1) edgeWithoutGuide();
-	if(makeType2) mirror([1,0,0]) edgeWithoutGuide();
+	edgeWithoutGuide();
 }
