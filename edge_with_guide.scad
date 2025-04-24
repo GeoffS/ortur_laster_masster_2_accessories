@@ -27,10 +27,10 @@ screwHoleDia = 3.2; // Measured #4-1/2 FH
 
 screwExtensionZ = baseZ;
 
-guideX = baseX;
-guideY = 6;
 guideZ = 8;
 guideCZ = baseCZ;
+
+pgy = -baseCornerDia/2;
 
 module edgeWithGuide()
 {
@@ -50,39 +50,26 @@ module basePlate()
             // Base:
             hull()
             {
-                doubleY() baseRoundedCornersXform() simpleChamferedCylinder(d=baseCornerDia, h=baseZ, cz=baseCZ);
+                baseRoundedCornersXform(pby) simpleChamferedCylinder(d=baseCornerDia, h=baseZ, cz=baseCZ);
+                baseRoundedCornersXform(pgy) simpleChamferedCylinder(d=baseCornerDia, h=baseZ, cz=baseCZ);
             }
             // Guide:
-            // tcu([-guideX/2, -guideY, 0], [guideX, guideY, guideZ]);
             hull()
             {
-                cx = guideX - 2*guideCZ;
-                cy = guideY - 2*guideCZ;
-                cz = guideZ - guideCZ;
-                tcu([-guideX/2, -cy-guideCZ, 0], [guideX, cy, cz]);
-                tcu([-cx/2, -guideY, 0], [cx, guideY, guideZ]);
+                baseRoundedCornersXform(pgy) simpleChamferedCylinder(d=baseCornerDia, h=guideZ, cz=guideCZ);
             }
         }
-
-        // Chamfer the ends:
-        doubleX() translate([-baseX/2, 0, 0]) rotate([0,0,45]) tcu([-200, -2*sin(45), -10], 400);
-
-        // Chamfer the top of the guide:
-        translate([-baseX/2, 0, guideZ]) rotate([45,0,0]) tcu([-200, -2*sin(45), -10], 400);
-
-        // Trim off X>0:
-        tcu([-200,0,-10], 400);
     }
 }
 
-module baseRoundedCornersXform()
+module baseRoundedCornersXform(y)
 {
-	doubleX() translate([pbx, pby, 0]) children();
+	doubleX() translate([pbx, y, 0]) children();
 }
 
 module screwHoles()
 {
-	baseRoundedCornersXform()
+	baseRoundedCornersXform(pby)
 	{
 		tcy([0,0,-1], d=screwHoleDia, h=20);
 		d2=9;
